@@ -22,20 +22,39 @@ public class UserRegister
   @Autowired
   private UserService userService;
   
+  //初始化我的知趣页面
   @RequestMapping("/toUser")
-  public String toUser(Model model) { return "before/user"; }
-
+  public String toUser(Model model) 
+  { 
+	  return "before/user"; 
+	  }
+  
+  //初始化注册页面
   @RequestMapping("/toRegister")
-  public String toRegister(Model model) { return "before/register"; }
+  public String toRegister(Model model)
+  { 
+	  return "before/register"; 
+	  }
  
+  //注册用户
   @RequestMapping("/register")
-  public String Register(@ModelAttribute User user, Model model, HttpSession session, String code) throws Exception { return this.userService.UserRegister(user, model, session, code); }
-
+  public String Register(@ModelAttribute User user, Model model, HttpSession session, String code) throws Exception 
+  { 
+	  return this.userService.UserRegister(user, model, session, code);
+	  
+  }
+  
+//初始化登录页面
   @RequestMapping("/toLogin")
-  public String toLogin(Model model) { return "before/login"; }
- 
+  public String toLogin(Model model)
+  { 
+	  return "before/login";  
+  }
+  
+ //登录
   @RequestMapping("/login")
-  public String Login(@ModelAttribute User user, Model model, HttpSession session, String code) throws Exception {
+  public String Login(@ModelAttribute User user, Model model, HttpSession session, String code) throws Exception 
+  {
     if ("123456".equals(user.getUserPassword()) && "123456".equals(user.getUserName())) {
       return "forward:/admin/AdminshowAll";
     }
@@ -43,13 +62,15 @@ public class UserRegister
     	 return userService.selectUser(user, model, session, code);
     }  
   }
-  
+   
+  //退出
   @RequestMapping("/exit")
   public String Exit(HttpSession session) {
     session.invalidate();
     return "forward:/question/showAll";
   }
   
+  //查询用户信息
   @RequestMapping("/selectUser")
   public String selectUser(Model model, HttpSession session) throws Exception {
     List<Map<String, Object>> question = this.userService.selectQuesByUname(session);
@@ -59,9 +80,13 @@ public class UserRegister
     return "before/user";
   }
  
+  //根据用户名查询用户
   @ResponseBody
   @RequestMapping(value = "queryByUser", method = {RequestMethod.POST}, produces = {"application/json;charset=UTF-8"})
-  public User queryByName(String userName, HttpServletRequest request) throws Exception { return this.userService.selectUserByName(userName); }
+  public User queryByName(String userName, HttpServletRequest request) throws Exception
+  { 
+	  return this.userService.selectUserByName(userName); 
+	  }
  
   @RequestMapping("/updateUser")
   public String updateUser(@RequestParam("userId") Integer userId, Model model) {
@@ -75,10 +100,11 @@ public class UserRegister
     Integer n = this.userService.updateUserById(user);
     if (n.intValue() > 0) {
       model.addAttribute("user", user);
-      model.addAttribute("msg", "锟斤拷锟斤拷锟斤拷锟斤拷");
+      model.addAttribute("msg", "修改成功");
       return "forward:/user/selectUser";
     } 
     
-    model.addAttribute("msg", "锟斤拷锟斤拷锟斤拷锟斤拷"); return "before/userUpdate";
+    model.addAttribute("msg", "修改失败！"); 
+    return "before/userUpdate";
   }
 }

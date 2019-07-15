@@ -22,6 +22,7 @@ public class AnswerController
   @Autowired
   private QuestionMapper questionMapper;
   
+  //展示问题加答案（点击问题标题后进入的页面展示）
   @RequestMapping("/showQues")
   public String showQues(@RequestParam("questionId") Integer questionId, Model model, HttpServletRequest request) throws Exception {
     List<Map<String, Object>> list = this.questionMapper.queryQandA(questionId);
@@ -29,6 +30,8 @@ public class AnswerController
     return "admin/answer";
   }
 
+  //添加答案
   @RequestMapping("/addAnswer")
-  public String addAnswer(Answer answer, HttpServletRequest request, HttpSession session) throws Exception { return this.answerService.addAnswer(answer, request, session); }
+  public String addAnswer(Answer answer, HttpServletRequest request, HttpSession session) throws Exception 
+  { return this.answerService.addAnswer(answer, request, session); }
 }

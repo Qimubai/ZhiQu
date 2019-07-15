@@ -22,7 +22,7 @@ public class QuestionServiceImpl
 {
   @Autowired
   private QuestionMapper questionMapper;
-  //添加问题
+  //��������
   public String addQuestion(Question question, Model model, HttpSession session) throws Exception {
     question.setUserId(MyUtil.getUserId(session));
     String date = MyUtil.getStringID();
@@ -38,7 +38,7 @@ public class QuestionServiceImpl
     return "before/toQuestion";
   }
 
-//根据问题id查找问题
+
   public List<Question> selectQues(Question question, Model model, HttpSession session) throws Exception {
     Integer id = MyUtil.getQuesId(session);
     return questionMapper.selectQues(id);
@@ -58,11 +58,11 @@ public class QuestionServiceImpl
   { return this.questionMapper.searchTotalCount(page); 
   }
 
-  //搜索问题
+
   public List<Question> getQuesBycondtion(Page page) 
   { return this.questionMapper.getQuesBycondtion(page); 
   }
-//查找问题及问题下的答案
+
   public List<Map<String, Object>> queryQandA(Question question, HttpServletRequest request, Answer answer) {
     Answer answer2 = (Answer)request.getAttribute("answer");
     int questionId = answer2.getQuestionId().intValue();

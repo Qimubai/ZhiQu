@@ -20,6 +20,7 @@ public class AdminController
   @Autowired
   private UserMapper userMapper;
   
+  //¹ÜÀíÔ±Ò³Ãæ·ÖÒ³ÏÔÊ¾ËùÓÐ
   @RequestMapping("/AdminshowAll")
   public String AdminshowAll(Page page, HttpServletRequest request) {
     Page p = page;
@@ -87,24 +88,24 @@ public class AdminController
   }
 
 
-  
+  //¸ù¾ÝÎÊÌâIDÉ¾³ýÎÊÌâ
   @RequestMapping("/AdminDelete")
   public String AdminDelete(@RequestParam("questionId") Integer questionId, Model model) {
     int flag = this.questionService.deleteById(questionId);
     if (flag > 0) {
-      model.addAttribute("msg", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+      model.addAttribute("msg", "É¾³ý³É¹¦£¡");
       return "forward:/admin/AdminshowAll";
     } 
     return "";
   }
 
 
-  
+  //¸ù¾ÝÓÃ»§ÃûÉ¾³ýÓÃ»§
   @RequestMapping("/deleteUserByName")
   public String deleteUserByName(@RequestParam String userName, Model model) throws Exception {
     int n = this.userMapper.deleteUserByName(userName).intValue();
     if (n > 0) {
-      model.addAttribute("msg", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+      model.addAttribute("msg", "É¾³ý³É¹¦£¡");
       return "forward:/admin/AdminshowAll";
     } 
     

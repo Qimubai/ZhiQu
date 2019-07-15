@@ -20,28 +20,28 @@ public class UserServiceImpl
   public String UserRegister(User user, Model model, HttpSession session, String code) throws Exception {
     if (!code.equalsIgnoreCase(session.getAttribute("code").toString())) {
       
-      model.addAttribute("codeError", "éªŒè¯ç é”™è¯¯");
+      model.addAttribute("codeError", "ÑéÖ¤Âë´íÎó£¡");
       return "before/register";
     } 
     
     int n = UserMapper.UserRegister(user);
     if (n > 0) {
-      model.addAttribute("meg", "æ³¨å†ŒæˆåŠŸ");
+      model.addAttribute("meg", "×¢²á³É¹¦£¡");
       return "before/login";
     } 
-    model.addAttribute("meg", "æ³¨å†Œå¤±è´¥!");
+    model.addAttribute("meg", "×¢²áÊ§°Ü");
     return "before/register";
   }
-//ç™»å½•
+
   public String selectUser(User user, Model model, HttpSession session, String code) throws Exception {
     if (!code.equalsIgnoreCase(session.getAttribute("code").toString())) {
       
-      model.addAttribute("codeError", "éªŒè¯ç é”™è¯¯");
+      model.addAttribute("codeError", "ÑéÖ¤Âë´íÎó£¡");
       return "before/login";
     } 
     User ruser = null;
     User user1 = UserMapper.selectUser(user);
-    System.out.println(UserMapper.selectUser(user));
+    //System.out.println(UserMapper.selectUser(user));
    // System.out.println(UserMapper.selectUser(user));
    /* if (list.size() > 0) {
       ruser = (User)list.get(0);
@@ -50,7 +50,7 @@ public class UserServiceImpl
       session.setAttribute("user", user1);
       return "forward:/question/showAll";
     } 
-    model.addAttribute("meg", "è´¦å·æˆ–å¯†ç é”™è¯¯è¯·é‡æ–°ç™»å½•");
+    model.addAttribute("meg", "ÓÃ»§Ãû»òÃÜÂë´íÎó£¡");
     return "before/login";
   }
 
@@ -68,7 +68,9 @@ public class UserServiceImpl
     return UserMapper.queryAnswByUname(userId);
   }
   
-  public User selectUserById(Integer userId) { return UserMapper.selectUserById(userId); }
+  public User selectUserById(Integer userId)
+  { return UserMapper.selectUserById(userId); }
 
-  public Integer updateUserById(User user) { return UserMapper.updateUserById(user); }
+  public Integer updateUserById(User user)
+  { return UserMapper.updateUserById(user); }
 }

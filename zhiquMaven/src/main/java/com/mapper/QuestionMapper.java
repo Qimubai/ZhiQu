@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface QuestionMapper {
+	//ÃÌº”Œ Ã‚
 	public int addQuestion(Question paramQuestion) throws Exception;
   
 	public List<Question> selectQues(Integer paramInteger) throws Exception;

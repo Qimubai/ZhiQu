@@ -27,28 +27,33 @@ public class QuestionController
   private QuestionMapper questionMapper;
   @Autowired
   private AnswerService answerService;
-  //鎼滅储闂
+  //根据问题标题查询问题
   @RequestMapping("/queryQues")
   public String queryQues(Model model, Page page, HttpSession session, Integer questionId) throws Exception {
     List<Question> list = this.questionService.getQuesBycondtion(page);
     model.addAttribute("Invlist", list);  
     return "before/home";
   }
-
+   
+  //初始化问题提交页面
   @RequestMapping("/toQuestion")
-  public String toQuestion(Model model) { return "before/toQuestion"; }
+  public String toQuestion(Model model) { 
+	  return "before/toQuestion"; }
 
-  
+  //添加问题
   @RequestMapping("addQuestion")
-  public String addQuestion(@ModelAttribute Question question, Model model, HttpSession session) throws Exception { return this.questionService.addQuestion(question, model, session); }
+  public String addQuestion(@ModelAttribute Question question, Model model, HttpSession session) throws Exception
+  { return this.questionService.addQuestion(question, model, session); }
   
+  //展示问题（提交问题后的问题详情页面）
   @RequestMapping("/showQuestion")
   public String showQuestion(@ModelAttribute Question question, Model model, HttpSession session) throws Exception {
     List<Question> list = this.questionService.selectQues(question, model, session);
     model.addAttribute("list", list);
     return "admin/quesDetails";
   }
-
+ 
+  //首页分页展示所有问题
   @RequestMapping("/showAll")
   public String searchQuesList(Page page, HttpServletRequest request) throws Exception {
     Page p = page;
@@ -112,18 +117,20 @@ public class QuestionController
        
        return startRow;       
   }
-
+ 
+  //展示问题加答案
   @RequestMapping("/showAnswer")
   public String show(Question question, HttpServletRequest request, Model model, Answer answer) {
     List<Map<String, Object>> list = this.questionService.queryQandA(question, request, answer);
     model.addAttribute("list", list);
     return "admin/answer";
   }
+  //删除问题
   @RequestMapping("/deleteQues")
   public String deleteQues(@RequestParam("questionId") Integer questionId, Model model) {
     int flag = this.questionService.deleteById(questionId);
     if (flag > 0) {
-      model.addAttribute("msg", "鍒犻櫎鎴愬姛");
+      model.addAttribute("msg", "删除成功！");
       return "before/toQuestion";
     } 
     return "";
@@ -134,14 +141,14 @@ public class QuestionController
   public String deleteQues2(@RequestParam("questionId") Integer questionId, Model model) {
     int flag = this.questionService.deleteById(questionId);
     if (flag > 0) {
-      model.addAttribute("msg", "锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷");
+      model.addAttribute("msg", "删除成功！");
       return "forward:/user/selectUser";
     } 
     return "";
   }
 
 
-  
+  //修改问题
   @RequestMapping("/updateQues")
   public String updateQues(Question question, Model model) throws Exception {
     Integer n = this.questionService.updateQuesById(question);
@@ -150,7 +157,7 @@ public class QuestionController
       model.addAttribute("question", question);
       return "forward:/question/showQuestion";
     }    
-    model.addAttribute("msg", "锟斤拷锟斤拷锟斤拷锟斤拷");
+    model.addAttribute("msg", "修改失败！");
     return "admin/quesDetails";
   }
 }
