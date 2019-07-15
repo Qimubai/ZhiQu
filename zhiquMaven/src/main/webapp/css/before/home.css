@@ -1,0 +1,96 @@
+
+/*导航栏*/
+			ul{
+			list-style-type:none;
+			margin:0;
+			padding:0;
+			overflow:hidden;
+			background-color:black;
+		  }
+		  
+		  li{
+			float:left;
+		  }
+		  
+		  li a, .dropbtn
+		  {
+			display:inline-block;
+			color:white;
+			text-align:center;
+			padding:14px 16px;
+			text-decoration:none;
+		  }
+		  
+		  li a:hover, .dropdown:hover, .dropbtn
+		  {
+			background-color:	#696969;
+		  }
+		  /*下拉列表*/
+		  .dropdown
+		  {
+			display:inline-block;
+		  }
+		  
+		  .dropdown-content
+		  {
+			display:none;
+			position:absolute;
+			background-color:#f9f9f9;
+			min-width:160px;
+			box-shadow:0px 8px 16px 0px rgba(0,0,0,0.2);
+		  }
+		  
+		  .dropdown-content a
+		  {
+			color:black;
+			padding:12px 16px;
+			text-decoration:none;
+			display:block;
+		  }
+		  
+		  .dropdown-content a:hover {background-color: #f1f1f1}
+		  
+		  .dropdown:hover .dropdown-content
+		  {
+			display:block;
+		  }
+		  /*下面是搜索框*/
+		  *{margin:0;padding:0;}
+		.dibu{
+			height: 62px;
+			width: 1000px;
+			margin: 0px auto;
+		}
+		.logo{
+			float: left;
+			height: 44px;
+			width: 135px;
+			padding: 4px;
+		}
+		.ask{
+			padding: 7px;
+			float: left;
+		}
+		.an{
+		  padding: 7px;
+		margin: 0px;
+		}
+		.txt{
+			height:40px;width: 540px;
+		}
+		.btn1{
+			background:#fefefe ;height:40px;width:94px;
+		}
+		.btn2{
+			background: #fefefe ;height:40px;width:94px;
+		}
+		.ghl{
+		   height:49px;
+		   width:982px;
+		   margin:0;
+		padding:10px;
+		background:blue;
+		}
+		
+		
+	

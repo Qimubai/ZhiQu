@@ -1,0 +1,41 @@
+@charset "UTF-8";
+ body{margin: 0px;
+         padding: 0px;}
+     .Big{  height:400px;
+     	    width:700px;	
+            margin-top:20px; 
+            background-color:#F5FFFA;
+            border: 5px  solid #F5FFFA;
+        }
+     .left{            
+         height: 400px;
+         width:100px;        
+         margin-left: 50px;
+         border-right:5px solid #F5FFFA;
+         float: left;
+         background-color:#F0F8FF;
+     } 
+     .right{
+         height: 400px;
+         width:490px;        
+         margin-right: 50px;    
+         float:left;  
+         background-color:#F0FFF0;  
+     }
+          .left table tr td:hover {
+	color:blue;
+}
+   .time{
+         font-family: "楷体";
+         font-size: 15px;
+     color:#CCCC99;   
+   }
+   .totle{
+        padding-ledt:10px;
+        font-size: 20px;  
+   }
+.leftTd{padding: 15px 0 15px 0;}
+span{
+	
+	font-size:10px; 
+}

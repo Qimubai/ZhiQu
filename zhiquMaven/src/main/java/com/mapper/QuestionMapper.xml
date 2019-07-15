@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.QuestionMapper">
+  <!-- 问题字段 -->
+  <sql id="quesComlumns">
+  (question_id,
+  summary,
+  question_content,
+  asker_name,
+  replied,
+  user_id,
+  create_time)
+  </sql>
+  <resultMap type="question" id="selectQuesResult">
+      <id property="questionId" column="question_id"/>
+      <result property="questionId" column="question_id"/>
+      <result property="summary" column="summary"/>
+      <result property="questionContent" column="question_content"/>
+      <result property="createTime" column="create_time"/>
+      <result property="userId" column="user_id"/>  
+     <collection property="answers" ofType="answer">
+     
+     
+     </collection>    
+  </resultMap>
+  <!--  一对多查询-->
+  <!-- <resultMap type="question" id="questionAndAnswer">
+   <id property="questionId" column="question_id"/>
+      <result property="questionId" column="question_id"/>
+      <result property="summary" column="summary"/>
+      <result property="questionContent" column="question_content"/>
+      <result property="createTime" column="create_time"/>
+      <result property="userId" column="user_id"/>
+
+<collection property="answers" ofType="answer">
+  <id  property="answerId" column="answer_id"></id>
+ <result property="replyContent" column="reply_content"/>
+ <result property="replyName" column="reply_name" />
+ <result property="questionId" column="question_id" />
+ <result property="replyOrder" column="reply_order" />
+ <result property="userId" column="user_id" />
+ <result property="createTime" column="create_time" />
+ <result property="status" column="status"/>
+</collection>
+  </resultMap> -->
+  
+     <!-- 添加问题 -->
+     <insert id="addQuestion" parameterType="question" 
+     keyProperty="questionId" useGeneratedKeys="true">
+    insert into question <include refid="quesComlumns"/>
+    values(null,#{summary},#{questionContent},#{askerName},#{replied},#{userId},#{createTime}) 
+     </insert>
+     
+     <!-- 查询显示问题页面 -->
+     <select id="selectQues" parameterType="Integer" resultMap="selectQuesResult" >
+       select question_id,summary,question_content,create_time
+        from question where question_id=#{questionId}    
+     </select>
+    
+     <!--查询所有到首页显示  -->   
+     <select id="searchQuesList" parameterType="com.po.Page" resultMap="selectQuesResult">
+        select * from question limit #{startRow},#{pageSize}
+    </select>
+          <!--  总数量 -->
+    <select id="searchTotalCount" parameterType="com.po.Page"
+        resultType="java.lang.Integer">
+        select count(question_id) from question <where>
+            <if test="queryCondition!=null">
+                and summary like CONCAT('%',#{queryCondition},'%')
+            </if>
+        </where>
+    </select>
+<!--  根据问题标题查询-->
+    <select id="getQuesBycondtion" parameterType="com.po.Page" resultMap="selectQuesResult">   
+        select * from question
+         <where>
+            <if test="queryCondition!=null">
+                 summary like  CONCAT('%',#{queryCondition},'%')
+            </if>
+        </where>
+      </select>
+<!-- 查询问题及该问题下包含的答案 一对多查询  -->
+   <select id="queryQandA" parameterType="Integer"  resultType="java.util.HashMap">
+   select q.question_id,q.summary,q.question_content,q.create_time,
+   a.answer_id,a.reply_content,a.question_id,a.create_time,
+   u.user_id a_user_id ,u.user_name a_user_name ,u.user_sex a_user_sex,
+	 u2.user_id q_user_id , u2.user_name q_user_name ,u2.user_sex q_user_sex
+   from question q left join answer a on  (q.question_id=a.question_id) 
+   left join user u on  a.user_id=u.user_id   left join user u2 on q.user_id=u2.user_id   
+   where q.question_id=#{questionId}
+   </select>
+   <!--根据问题id删除问题  -->
+<delete id="deleteById" parameterType="Integer">
+DELETE question,answer from question LEFT JOIN answer ON question.question_id=answer.question_id 
+WHERE question.question_id=#{questionId}
+</delete>
+    <!--根据问题id修改问题  -->
+    <update id="updateQuesById" parameterType="com.po.Question" >
+     
+update question set summary=#{summary},question_content=#{questionContent} where question_id=#{questionId}
+    </update>
+</mapper>

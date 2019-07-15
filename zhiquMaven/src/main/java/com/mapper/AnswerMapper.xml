@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.AnswerMapper">
+ <!--  <resultMap id="AnswerMap" type="com.po.Answer">
+    <id column="answer_id"  property="answerId" />
+    <result column="reply_name" property="replyName" />
+    <result column="reply_content" property="replyContent"/>
+    <result column="question_id"  property="questionId" />
+    <result column="reply_order"  property="replyOrder" />
+    <result column="user_id"  property="userId" />
+    <result column="create_time"  property="createTime" />
+    <result column="status" property="status" />
+  </resultMap> -->
+  <sql id="AnswerSql">
+    (answer_id,reply_content,reply_name, question_id, reply_order, user_id, 
+    create_time,status)   
+  </sql>
+  <!--添加答案  -->
+<insert id="addAnswer" parameterType="answer" 
+keyProperty="answerId" useGeneratedKeys="true">
+   insert into answer <include refid="AnswerSql" /> 
+   values(null,#{replyContent},#{replyName}, #{questionId}, 
+      #{replyOrder}, #{userId}, #{createTime}, 
+      #{status})
+</insert>
+<!-- 回答数 -->
+<select id="countAnsw" parameterType="java.lang.Integer"  resultType="java.lang.Integer">
+select count(answer_id)
+from question q left join answer a on q.question_id=a.question_id
+where q.question_id=#{questionId}
+
+</select>
+ 
+</mapper>

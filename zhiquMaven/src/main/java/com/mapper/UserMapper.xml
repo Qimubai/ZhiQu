@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UserMapper">
+  
+  <!-- 用户 -->
+ <!--  <sql id="UserColumns">  
+         (user_id as userId,
+         user_name as userName,
+         user_password  as userPassword,
+         user_age as userAge,
+         user_sex as userSex,
+         question_id as questionId,
+         answer_id as anwerId)
+    </sql>   -->
+     
+     
+     
+     
+     
+    <!-- 用户注册 -->
+  <insert id="UserRegister" parameterType="user">
+		insert into user (
+		 user_id,
+         user_name,
+         user_password,
+         user_age,
+         user_sex,
+         question_id,
+         answer_id)
+		values (null, #{userName}, #{userPassword},#{userAge},#{userSex},#{questionId},#{ answerId})
+	</insert>
+	<!-- 用户登录 -->
+	<select id="selectUser" parameterType="com.po.User" resultType="com.po.User">
+	select user_id userId,user_name userName,user_password userPassword,user_sex userSex,user_age userAge 
+	from user where user_name=#{userName} and user_password=#{userPassword}
+	</select>
+	<!-- 查询用户信息 -->
+	<!-- <select id="selectUserById" parameterType="Integer" resultType="java.util.HashMap"  >
+	select q.question_id,q.summary,q.question_content,q.create_time qtime,q.user_id,
+   a.answer_id,a.reply_content,a.question_id,a.create_time atime,
+   u.user_id a_user_id ,u.user_name a_user_name ,u.user_sex a_user_sex
+   from user u left join question q on  (q.user_id=u.user_id) 
+   left join answer a on  a.user_id=u.user_id      
+where u.user_id=#{userId}
+group by q.question_id
+	</select> -->
+	<!--查询用户问题信息  -->
+	<select id="selectQuesByUname" parameterType="Integer" resultType="java.util.HashMap">
+	  select q.question_id,q.summary,q.question_content,q.create_time,
+   u.user_id,u.user_name,u.user_password,u.user_sex,u.user_age
+   from user u left join question q on  (q.user_id=u.user_id) 
+   where u.user_id=#{userId}	
+	</select>
+	<!-- 查询用户回答信息 -->
+	<select id="queryAnswByUname" parameterType="Integer" resultType="java.util.HashMap">
+	select 
+ a.answer_id,q.question_id,a.reply_content,q.summary
+  from answer a,question q  where a.user_id=#{userId} and a.question_id=q.question_id
+	</select>
+	<!--查询用户信息  -->
+	<select id="selectUserById" parameterType="Integer" resultType="user">
+	    select user_id,user_name,user_password,user_sex,user_age from
+	    user where user_id=#{userId}
+	</select>
+	  
+	<!-- 修改用户信息 -->
+	<update id="updateUserById" parameterType="com.po.User">
+	 update user set user_name=#{userName},user_password=#{userPassword},user_sex=#{userSex},user_age=#{userAge}
+	 where user_id=#{userId}
+	</update>
+	<!-- 检验用户名是否重复 -->
+	<select id="selectUserByName" parameterType="java.lang.String" resultType="user">
+	 select * from user where user_name=#{userName}
+	</select>
+	<!-- 删除用户 -->
+	<delete id="deleteUserByName" parameterType="String">
+	 
+	delete user from user where user_name=#{userName}
+	</delete>
+</mapper>

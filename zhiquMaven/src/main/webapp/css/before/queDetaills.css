@@ -1,0 +1,25 @@
+ .div1{ 
+       padding: 10px;
+       margin: 0px auto;      
+       align-content: center; 
+       height: 500px;
+       width: 600px;
+       }
+       h2{       
+        font-family: "ËÎÌו";  
+        margin: 5px;
+        padding: 10px;     
+        }
+        .p1{
+        font-family: "ËÎÌו";
+        font-size: 20px;  
+         margin: 0px;
+        padding: 10px;            
+         }
+        .p2{
+         font-family: "¿¬Ìו";
+         font-size: 15px;
+         color:#CCCC99;
+         margin: 0px;
+        padding: 10px; 
+        }
